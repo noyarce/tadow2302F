@@ -17,7 +17,7 @@ function App() {
 
 const quitaItemArray=(valor)=>{
   let variable;
-  variable = arraysito.filter((item)=> item ==valor)
+  variable = arraysito.filter((item)=> item !==valor)
   setArraysito(variable)
 }
 
@@ -26,6 +26,15 @@ const quitaItemArray=(valor)=>{
 useEffect(()=>{
   console.log("hola que tal?")
 },[]);
+
+
+
+const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setObjetito({...objetito,
+      [name]:value});
+    console.log(objetito);
+  };
 
 
   return (
@@ -39,7 +48,8 @@ useEffect(()=>{
         </a>
       </div>
       <Hola nombre="Juanito" apellido = "Lopez" numero = {count} setNumero={setCount}></Hola>
-      
+      <input type="text" name="input_1" onChange={handleInputChange}></input>
+
 
       <h1>Vite + React</h1>
       <div className="card">
