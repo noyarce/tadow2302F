@@ -11,9 +11,16 @@ function App() {
 
   
   useEffect(()=>{
-    setArraysito(arraysito =>[...arraysito, count]);
-    console.log(arraysito);
-},[count]);
+    !(count % 2) || setArraysito(arraysito =>[count, ...arraysito]) 
+    console.log(arraysito)
+},[count])
+
+const quitaItemArray=(valor)=>{
+  let variable;
+  variable = arraysito.filter((item)=> item ==valor)
+  setArraysito(variable)
+}
+
 
 
 useEffect(()=>{
