@@ -16,3 +16,6 @@ manejo de hooks
 arrays? (Lectura para la casa)
 Material UI
 MUI Grid
+
+
+#quitar strict mode 

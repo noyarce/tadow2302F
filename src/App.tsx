@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,6 +6,20 @@ import Hola from './Hola'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [arraysito, setArraysito]=useState([])
+  const [objetito, setObjetito]=useState(null)
+
+  
+  useEffect(()=>{
+    setArraysito(arraysito =>[...arraysito, count]);
+    console.log(arraysito);
+},[count]);
+
+
+useEffect(()=>{
+  console.log("hola que tal?")
+},[]);
+
 
   return (
     <>
@@ -18,8 +32,7 @@ function App() {
         </a>
       </div>
       <Hola nombre="Juanito" apellido = "Lopez" numero = {count} setNumero={setCount}></Hola>
-      <Hola nombre="Elvis" apellido = "Teck" numero = {count} setNumero={setCount}></Hola>
-      <Hola nombre="Pedro" apellido = "Perez" numero = {count} setNumero={setCount}></Hola>
+      
 
       <h1>Vite + React</h1>
       <div className="card">
