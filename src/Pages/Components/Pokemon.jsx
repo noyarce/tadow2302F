@@ -21,7 +21,8 @@ export default function Pokemon() {
     <>
       <List>
       {pokemones.map((item, index) => (
-      <> <ListItem disablePadding>
+      <> 
+      <ListItem disablePadding key={index}>
           <ListItemText primary={item.name} />
         </ListItem>
         <Divider></Divider>
@@ -31,8 +32,6 @@ export default function Pokemon() {
        
        
       </List>
-      
-      Hola que tal
     </>
   );
 }
