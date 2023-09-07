@@ -29,7 +29,8 @@ const handleInputChange = (event) => {
   useEffect(() => {
     if (buscador.trim() !== "") {
       let result = pokemones.filter((item) =>
-        item.name.toString().includes(buscador.toString().trim())
+        //item.name.toString().includes(buscador.toString().trim())
+      item.name.startsWith(buscador)
       );
       setListaAux(result);
     } else {
@@ -37,27 +38,26 @@ const handleInputChange = (event) => {
     }
   }, [buscador]);
 
+  
   return (
     <>
     <input name="buscador" onChange={handleInputChange}></input>
       <Grid container spacing ={1}>
-      <Grid item md={6}>
-      <List>
-      {pokemones.map((item, index) => (
-      <> 
-      <ListItem disablePadding key={index}>
-          <ListItemText primary={item.name} />
-        </ListItem>
-        <Divider></Divider>
-      </>
-        
-      ))}
-       
-       
-      </List>
+        <Grid item md={9} xs={6}>
+            <List>
+            {pokemones.map((item, index) => (
+            <> 
+            <ListItem disablePadding key={index}>
+                <ListItemText primary={item.name} />
+              </ListItem>
+              <Divider></Divider>
+            </>
+
+            ))}
+          </List>
       </Grid>
 
-      <Grid item md={6}>
+      <Grid item md={3} xs={6}>
       <List>
       {listaAux.map((item, index) => (
       <> 
