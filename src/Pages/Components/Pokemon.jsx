@@ -51,11 +51,26 @@ export default function Pokemon() {
       let otros;
       otros = pokemones.filter((item) => item !== valor);
       setPokemones(otros);
+
+      let otros2;
+      otros2 = listaAux.filter((item)=> item !== valor);
+      setListaAux(otros2);
+
     }
   }
 
-  function returnPokemon(valor){}
-  
+  function returnPokemon(valor){
+    setPokemones(pokemones=> [valor, ... pokemones]);
+    let filtro1;
+    filtro1 = listaSeleccionados.filter(item => item !== valor);
+    setListaSeleccionados(filtro1);
+    if(valor.name.startsWith(buscador) && buscador){
+      setListaAux(listaAux => [...listaAux, valor]);
+    }
+
+
+  }
+
 
   console.log(listaSeleccionados);
   return (
@@ -100,6 +115,12 @@ export default function Pokemon() {
               <>
                 <ListItem disablePadding key={index}>
                   <ListItemText primary={item.name} />
+                  <Button
+                    variant="outlined"
+                    onClick={() => returnPokemon(item)}
+                  >
+                   de vuelta
+                  </Button>
                 </ListItem>
                 <Divider></Divider>
               </>
