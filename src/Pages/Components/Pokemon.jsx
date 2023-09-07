@@ -1,4 +1,11 @@
-import { Button, Divider, Grid, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -7,7 +14,7 @@ export default function Pokemon() {
 
   const [buscador, setBuscador] = useState("");
   const [listaAux, setListaAux] = useState([]);
-  const [listaSeleccionados, setListaSEleccionados] = useState([]);
+  const [listaSeleccionados, setListaSeleccionados] = useState([]);
 
   function cargarListado() {
     axios
@@ -21,17 +28,16 @@ export default function Pokemon() {
     cargarListado();
   }, []);
 
-
-const handleInputChange = (event) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-   setBuscador(value);
+    setBuscador(value);
   };
 
   useEffect(() => {
     if (buscador.trim() !== "") {
       let result = pokemones.filter((item) =>
         //item.name.toString().includes(buscador.toString().trim())
-      item.name.startsWith(buscador)
+        item.name.startsWith(buscador)
       );
       setListaAux(result);
     } else {
@@ -39,66 +45,68 @@ const handleInputChange = (event) => {
     }
   }, [buscador]);
 
+  function selectPokemon(valor) {
+    if (!listaSeleccionados.includes(valor)) {
+      setListaSeleccionados((listaSeleccionados) => [...listaSeleccionados,valor]);
+      let otros;
+      otros = pokemones.filter((item) => item !== valor);
+      setPokemones(otros);
+    }
+  }
 
-function selectPokemon(item){
-  console.log(item)
-  setListaSEleccionados(listaSeleccionados=>[...listaSeleccionados, item])
+  function returnPokemon(valor){}
+  
 
-}
-
-console.log(listaSeleccionados);
+  console.log(listaSeleccionados);
   return (
     <>
-    <input name="buscador" onChange={handleInputChange}></input>
-      <Grid container spacing ={1}>
+      <input name="buscador" onChange={handleInputChange}></input>
+      <Grid container spacing={1}>
         <Grid item md={4} xs={6}>
-            <List>
+          <List>
             {pokemones.map((item, index) => (
-            <> 
-            <ListItem disablePadding key={index}>
-                <ListItemText primary={item.name} />
-              </ListItem>
-              <Divider></Divider>
-            </>
-
+              <>
+                <ListItem disablePadding key={index}>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+                <Divider></Divider>
+              </>
             ))}
           </List>
-      </Grid>
+        </Grid>
 
-      <Grid item md={4} xs={6}>
-      <List>
-      {listaAux.map((item, index) => (
-      <> 
-      <ListItem disablePadding key={index}>
-          <ListItemText primary={item.name} />
-          <Button variant="outlined"onClick={()=>selectPokemon(item)}>Miiiiirame!</Button>
-        </ListItem>
-        <Divider></Divider>
-      </>
-        
-      ))}
-       
-      </List>
-      </Grid>
+        <Grid item md={4} xs={6}>
+          <List>
+            {listaAux.map((item, index) => (
+              <>
+                <ListItem disablePadding key={index}>
+                  <ListItemText primary={item.name} />
+                  <Button
+                    variant="outlined"
+                    onClick={() => selectPokemon(item)}
+                  >
+                    Miiiiirame!
+                  </Button>
+                </ListItem>
+                <Divider></Divider>
+              </>
+            ))}
+          </List>
+        </Grid>
 
-      <Grid item md={4} xs={6}>
-      <List>
-      {listaSeleccionados.map((item, index) => (
-      <> 
-      <ListItem disablePadding key={index}>
-          <ListItemText primary={item.name} />
-        </ListItem>
-        <Divider></Divider>
-      </>
-        
-      ))}
-       
-      </List>
+        <Grid item md={4} xs={6}>
+          <List>
+            {listaSeleccionados.map((item, index) => (
+              <>
+                <ListItem disablePadding key={index}>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+                <Divider></Divider>
+              </>
+            ))}
+          </List>
+        </Grid>
       </Grid>
-      </Grid>
-      
-
-      
     </>
   );
 }
