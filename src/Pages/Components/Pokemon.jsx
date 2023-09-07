@@ -1,4 +1,4 @@
-import { Divider, Grid, List, ListItem, ListItemText } from "@mui/material";
+import { Button, Divider, Grid, List, ListItem, ListItemText } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -7,7 +7,8 @@ export default function Pokemon() {
 
   const [buscador, setBuscador] = useState("");
   const [listaAux, setListaAux] = useState([]);
-  
+  const [listaSeleccionados, setListaSEleccionados] = useState([]);
+
   function cargarListado() {
     axios
       .get("https://pokeapi.co/api/v2/pokemon?limit=151")
@@ -38,12 +39,19 @@ const handleInputChange = (event) => {
     }
   }, [buscador]);
 
-  
+
+function selectPokemon(item){
+  console.log(item)
+  setListaSEleccionados(listaSeleccionados=>[...listaSeleccionados, item])
+
+}
+
+console.log(listaSeleccionados);
   return (
     <>
     <input name="buscador" onChange={handleInputChange}></input>
       <Grid container spacing ={1}>
-        <Grid item md={9} xs={6}>
+        <Grid item md={4} xs={6}>
             <List>
             {pokemones.map((item, index) => (
             <> 
@@ -57,9 +65,25 @@ const handleInputChange = (event) => {
           </List>
       </Grid>
 
-      <Grid item md={3} xs={6}>
+      <Grid item md={4} xs={6}>
       <List>
       {listaAux.map((item, index) => (
+      <> 
+      <ListItem disablePadding key={index}>
+          <ListItemText primary={item.name} />
+          <Button variant="outlined"onClick={()=>selectPokemon(item)}>Miiiiirame!</Button>
+        </ListItem>
+        <Divider></Divider>
+      </>
+        
+      ))}
+       
+      </List>
+      </Grid>
+
+      <Grid item md={4} xs={6}>
+      <List>
+      {listaSeleccionados.map((item, index) => (
       <> 
       <ListItem disablePadding key={index}>
           <ListItemText primary={item.name} />
@@ -68,7 +92,6 @@ const handleInputChange = (event) => {
       </>
         
       ))}
-       
        
       </List>
       </Grid>
