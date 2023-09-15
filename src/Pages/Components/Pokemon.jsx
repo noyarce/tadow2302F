@@ -8,42 +8,35 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import {useBuscarInfoQuery} from "../../queries/queryEjemplo"
 export default function Pokemon() {
   const [pokemones, setPokemones] = useState([]);
-
-  const [buscador, setBuscador] = useState("");
   const [listaAux, setListaAux] = useState([]);
   const [listaSeleccionados, setListaSeleccionados] = useState([]);
+  const [buscador, setBuscador] = useState("");
 
-  function cargarListado() {
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
-      .then((response) => {
-        setPokemones(response.data.results);
-      });
-  }
+const {data: pokemon, isLoading }  = useBuscarInfoQuery(); 
+console.log('pokemones',pokemon)
+console.log("cargando?", isLoading)
 
-  useEffect(() => {
-    cargarListado();
-  }, []);
+  // function cargarListado() {
+  //   axios
+  //     .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+  //     .then((response) => {
+  //       setPokemones(response.data.results);
+  //     });
+  // }
+  //
+  // useEffect(() => {
+  //   cargarListado();
+  // }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBuscador(value);
   };
 
-  useEffect(() => {
-    if (buscador.trim() !== "") {
-      let result = pokemones.filter((item) =>
-        //item.name.toString().includes(buscador.toString().trim())
-        item.name.startsWith(buscador)
-      );
-      setListaAux(result);
-    } else {
-      setListaAux([]);
-    }
-  }, [buscador]);
+
 
   function selectPokemon(valor) {
     if (!listaSeleccionados.includes(valor)) {
@@ -67,12 +60,19 @@ export default function Pokemon() {
     if(valor.name.startsWith(buscador) && buscador){
       setListaAux(listaAux => [...listaAux, valor]);
     }
-
-
   }
+  useEffect(() => {
+    if (buscador.trim() !== "") {
+      let result = pokemones.filter((item) =>
+        //item.name.toString().includes(buscador.toString().trim())
+        item.name.startsWith(buscador)
+      );
+      setListaAux(result);
+    } else {
+      setListaAux([]);
+    }
+  }, [buscador]);
 
-
-  console.log(listaSeleccionados);
   return (
     <>
       <input name="buscador" onChange={handleInputChange}></input>
