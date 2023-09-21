@@ -17,7 +17,7 @@ export default function Pokemon() {
   const [buscador, setBuscador] = useState("");
  // const [cargando, setCargando]= useState(false);
 
-  const [params, setParams]= useState({limit: 20 })
+  const [params, setParams]= useState({limit: 20 , page: 1})
 
 
 const {data: pokemon, isLoading: cargandoPokes, isSuccess }  = useBuscarInfoQuery(params); 

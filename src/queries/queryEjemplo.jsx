@@ -19,8 +19,8 @@ export const buscarInfoQuery = async (params) => {
   const [queryName, paramsFilter] = params.queryKey;
  
   let url = "https://pokeapi.co/api/v2/pokemon?limit=151";
-  let url2= "https://pokeapi.co/api/v2/pokemon?limit="+paramsFilter.limit;
-  let url3= `https://pokeapi.co/api/v2/pokemon?limit=${paramsFilter.limit}`;
+  let url2= "https://pokeapi.co/api/v2/pokemon?limit="+paramsFilter.limit+"&page="+paramsFilter.page;
+  let url3= `https://pokeapi.co/api/v2/pokemon?limit=${paramsFilter.limit}&page=${paramsFilter.page}`;
   
   const { data } = await axios.get(url3);
 
