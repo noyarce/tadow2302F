@@ -15,7 +15,7 @@ export default function Pokemon() {
   const [listaAux, setListaAux] = useState([]);
   const [listaSeleccionados, setListaSeleccionados] = useState([]);
   const [buscador, setBuscador] = useState("");
-  const [cargando, setCargando]= useState(false);
+ // const [cargando, setCargando]= useState(false);
 
   const [params, setParams]= useState({limit: 20 })
 
@@ -23,11 +23,11 @@ export default function Pokemon() {
 const {data: pokemon, isLoading: cargandoPokes, isSuccess }  = useBuscarInfoQuery(params); 
 console.log('pokemones',pokemon)
 console.log("cargando?", cargandoPokes)
-//
+ 
  // function cargarListado() {
  //   setCargando(true);
  //   axios
- //     .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+ //     .get("https://pokeapi.co/api/v2/pokemon?limit="+params.limit)
  //     .then((response) => {
  //       setPokemones(response.data.results);
  //       setCargando(false);
@@ -35,11 +35,24 @@ console.log("cargando?", cargandoPokes)
  // }
  // useEffect(() => {
  //   cargarListado();
- // }, []);
+ // }, [params]);
+
+
+
+ useEffect(()=>{
+  isSuccess&&setPokemones(pokemon)
+},[isSuccess]);
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBuscador(value);
+  };
+
+
+  const handleInputChangeLimit = (event) => {
+    const { name, value } = event.target;
+    setParams({ limit : value});
   };
 
 
@@ -82,11 +95,13 @@ console.log("cargando?", cargandoPokes)
   return (
     <>
       <input name="buscador" onChange={handleInputChange}></input>
+      <input name="limitMax" onChange={handleInputChangeLimit}></input>
+
       <Grid container spacing={1}>
         <Grid item md={4} xs={6}>
-        {cargando &&<LinearProgress/>}
+        {cargandoPokes &&<LinearProgress/>}
           <List>
-            {pokemones.map((item, index) => (
+            {pokemon?.map((item, index) => (
               <>
                 <ListItem disablePadding key={index}>
                   <ListItemText primary={item.name} />
