@@ -2,6 +2,7 @@ import {
   Button,
   Divider,
   Grid,
+  LinearProgress,
   List,
   ListItem,
   ListItemText,
@@ -14,22 +15,27 @@ export default function Pokemon() {
   const [listaAux, setListaAux] = useState([]);
   const [listaSeleccionados, setListaSeleccionados] = useState([]);
   const [buscador, setBuscador] = useState("");
+  const [cargando, setCargando]= useState(false);
 
-const {data: pokemon, isLoading }  = useBuscarInfoQuery(); 
+  const [params, setParams]= useState({limit: 20 })
+
+
+const {data: pokemon, isLoading: cargandoPokes, isSuccess }  = useBuscarInfoQuery(params); 
 console.log('pokemones',pokemon)
-console.log("cargando?", isLoading)
-
-  // function cargarListado() {
-  //   axios
-  //     .get("https://pokeapi.co/api/v2/pokemon?limit=151")
-  //     .then((response) => {
-  //       setPokemones(response.data.results);
-  //     });
-  // }
-  //
-  // useEffect(() => {
-  //   cargarListado();
-  // }, []);
+console.log("cargando?", cargandoPokes)
+//
+ // function cargarListado() {
+ //   setCargando(true);
+ //   axios
+ //     .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+ //     .then((response) => {
+ //       setPokemones(response.data.results);
+ //       setCargando(false);
+ //     });
+ // }
+ // useEffect(() => {
+ //   cargarListado();
+ // }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -78,6 +84,7 @@ console.log("cargando?", isLoading)
       <input name="buscador" onChange={handleInputChange}></input>
       <Grid container spacing={1}>
         <Grid item md={4} xs={6}>
+        {cargando &&<LinearProgress/>}
           <List>
             {pokemones.map((item, index) => (
               <>

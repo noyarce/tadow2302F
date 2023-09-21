@@ -12,8 +12,17 @@ export function useBuscarInfoQuery(params) {
   });
 }
 
-export const buscarInfoQuery = async () => {
-  const { data } = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
-console.log(data);
-return data.results;
+export const buscarInfoQuery = async (params) => { 
+  console.log("params original",params);
+  console.log("params detalle ",params.queryKey);
+
+  const [queryName, paramsFilter] = params.queryKey;
+ 
+  let url = "https://pokeapi.co/api/v2/pokemon?limit=151";
+  let url2= "https://pokeapi.co/api/v2/pokemon?limit="+paramsFilter.limit;
+  let url3= `https://pokeapi.co/api/v2/pokemon?limit=${paramsFilter.limit}`;
+  
+  const { data } = await axios.get(url3);
+
+  return data.results;
 };
