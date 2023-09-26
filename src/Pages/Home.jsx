@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Pokemon from "./Components/Pokemon";
-
+import PokeDetalle from "./Components/PokeDetalle";
 
 
 export default function Home(){
@@ -27,8 +27,8 @@ export default function Home(){
         <Pokemon></Pokemon>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
+      <PokeDetalle></PokeDetalle>   
+    </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Item Three
       </CustomTabPanel>

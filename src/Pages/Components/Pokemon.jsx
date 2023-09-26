@@ -15,27 +15,11 @@ export default function Pokemon() {
   const [listaAux, setListaAux] = useState([]);
   const [listaSeleccionados, setListaSeleccionados] = useState([]);
   const [buscador, setBuscador] = useState("");
- // const [cargando, setCargando]= useState(false);
 
   const [params, setParams]= useState({limit: 20 , page: 1})
 
 
-const {data: pokemon, isLoading: cargandoPokes, isSuccess }  = useBuscarInfoQuery(params); 
-console.log('pokemones',pokemon)
-console.log("cargando?", cargandoPokes)
- 
- // function cargarListado() {
- //   setCargando(true);
- //   axios
- //     .get("https://pokeapi.co/api/v2/pokemon?limit="+params.limit)
- //     .then((response) => {
- //       setPokemones(response.data.results);
- //       setCargando(false);
- //     });
- // }
- // useEffect(() => {
- //   cargarListado();
- // }, [params]);
+const {data: pokemon, isLoading: cargandoPokes, isSuccess, isError }  = useBuscarInfoQuery(params); 
 
 
 
@@ -43,6 +27,9 @@ console.log("cargando?", cargandoPokes)
   isSuccess&&setPokemones(pokemon)
 },[isSuccess]);
 
+useEffect(()=>{
+  isError&&console.log("error");
+},[isError])
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
