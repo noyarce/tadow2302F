@@ -23,5 +23,12 @@ export const buscarInfoQuery = async (params) => {
   
   const { data } = await axios.get(url3);
 
-  return data.results;
-};
+
+  let pokemones ;
+  pokemones = data.results.map((item , index)=>{
+    return {name: item.name , id: index +1 }  
+  });
+
+  
+  return pokemones;
+  };

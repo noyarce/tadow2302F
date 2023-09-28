@@ -10,17 +10,17 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {useBuscarInfoQuery} from "../../queries/queryEjemplo"
+import { Link } from "react-router-dom";
 export default function Pokemon() {
   const [pokemones, setPokemones] = useState([]);
   const [listaAux, setListaAux] = useState([]);
   const [listaSeleccionados, setListaSeleccionados] = useState([]);
   const [buscador, setBuscador] = useState("");
 
-  const [params, setParams]= useState({limit: 20 , page: 1})
+  const [params, setParams]= useState({limit: 151 , page: 1})
 
 
 const {data: pokemon, isLoading: cargandoPokes, isSuccess, isError }  = useBuscarInfoQuery(params); 
-
 
 
  useEffect(()=>{
@@ -90,9 +90,11 @@ useEffect(()=>{
           <List>
             {pokemon?.map((item, index) => (
               <>
+              <Link key={index} to={"/pokeDetalle/"+item.id}>
                 <ListItem disablePadding key={index}>
                   <ListItemText primary={item.name} />
                 </ListItem>
+                </Link>
                 <Divider></Divider>
               </>
             ))}

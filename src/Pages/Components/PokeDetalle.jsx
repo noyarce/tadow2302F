@@ -4,21 +4,25 @@ import {
   Alert,
   Button,
   Card,
+  CardActions,
   CardContent,
   CardMedia,
   TextField,
 } from "@mui/material";
 
 import {useQueryPokeDetalle} from "../../queries/queryPokeDetalle";
-import { useParams  } from "react-router-dom";
+import { Link, useParams  } from "react-router-dom";
 
 export default function PokeDetalle() {
 
-  const [params, setParams]=useState({valor: ''})
-//const params = useParams();
+  const [params, setParams]=useState({valor: ''}) 
 
-  const { data: poke, isError: hayError } = useQueryPokeDetalle(params);
- // const { data: poke, isError: hayError } = useQueryPokeDetalle({ valor: params.pokeId });
+const paramsUrl = useParams();
+
+
+  const { data: poke, isError: hayError } = useQueryPokeDetalle({valor:paramsUrl.pokeId});
+ 
+ 
   const handleInputChangeLimit = (event) => {
     const { name, value } = event.target;
     setParams({ valor : value});
@@ -30,12 +34,19 @@ export default function PokeDetalle() {
 
       {hayError && <Alert severity="error">ese pokemon no existe</Alert>}
       <Card>
-        <CardMedia component="img" image={poke?.sprites.front_default} />
+        <CardMedia sx={{maxWidth: 200}} component="img" image={poke?.sprites.front_default} />
 
         <CardContent>
           numero : {poke?.id} <br />
           nombre : {poke?.name}
         </CardContent>
+        <CardActions>
+           <Link to={'/'}><Button>
+            Volvé
+          </Button>
+           </Link>
+          
+        </CardActions>
       </Card>
     </>
   );
