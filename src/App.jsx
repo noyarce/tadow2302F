@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import { QueryClient, QueryClientProvider } from "react-query";
-import Home from './Pages/Home'
 
+import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import RouterApp from "../Router";
 
 const queryClient = new QueryClient();
 
@@ -10,7 +9,9 @@ function App() {
   return (
     <>
     <QueryClientProvider client={queryClient}>
-    <Home></Home>
+      <BrowserRouter>
+          <RouterApp />
+      </BrowserRouter>    
     </QueryClientProvider>
     </>
   )

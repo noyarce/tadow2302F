@@ -10,11 +10,15 @@ import {
 } from "@mui/material";
 
 import {useQueryPokeDetalle} from "../../queries/queryPokeDetalle";
+import { useParams  } from "react-router-dom";
 
 export default function PokeDetalle() {
-const [params, setParams]=useState({valor: ''})
+
+  const [params, setParams]=useState({valor: ''})
+//const params = useParams();
+
   const { data: poke, isError: hayError } = useQueryPokeDetalle(params);
-  
+ // const { data: poke, isError: hayError } = useQueryPokeDetalle({ valor: params.pokeId });
   const handleInputChangeLimit = (event) => {
     const { name, value } = event.target;
     setParams({ valor : value});
