@@ -26,9 +26,9 @@ const Formulario = () => {
 
   const handleSelect = (newValue) => {
     if (newValue === null || typeof newValue === "undefined") {
-      set({ label: "", value: "" });
+      setValueSelected({ label: "", value: "" });
     } else {
-      set({ label: newValue.label, value: newValue.value });
+      setValueSelected({ label: newValue.label, value: newValue.value });
     }
   };
 
@@ -57,12 +57,10 @@ const Formulario = () => {
                   handleSelect(newValue);
                 }}
                 options={nuevoListado.map((item, index) => ({
-                  label: item.label,
+                  label: item.name,
                   value: item.id,
                 }))}
-                getOptionLabel={(item) =>
-                  item.label
-                }
+                getOptionLabel={(item) => item.label}
                 value={valueSelected}
                 renderInput={(params) => (
                   <TextField
