@@ -15,17 +15,16 @@ import { Link, useParams  } from "react-router-dom";
 
 export default function PokeDetalle() {
 
-  const [params, setParams]=useState({valor: ''}) 
+//const [params, setParams]=useState({valor: ''}) 
 
 const paramsUrl = useParams();
 
-
-  const { data: poke, isError: hayError } = useQueryPokeDetalle({valor:paramsUrl.pokeId});
+const { data: poke, isError: hayError } = useQueryPokeDetalle({valor:paramsUrl.pokeId});
  
  
   const handleInputChangeLimit = (event) => {
     const { name, value } = event.target;
-    setParams({ valor : value});
+  //  setParams({ valor : value});
   };
   
   return (
