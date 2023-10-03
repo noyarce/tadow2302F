@@ -14,14 +14,12 @@ import { useBuscarInfoQuery } from "../queries/queryEjemplo";
 const Formulario = () => {
   const [pokemones, setPokemones] = useState([]);
   const { data: nuevoListado } = useBuscarInfoQuery({ limit: 151 });
-  const [valueSelected, setValueSelected]=useState({label:'', value:''});
-
-  const onSubmit = (data) => {
-    guardarInfo(data);
-  };
-
-  const guardarInfo = (data) => {
-    setPokemones((pokemones) => [...pokemones, data]);
+  const [valueSelected, setValueSelected] = useState({ label: '', value: '' });
+const [mote, setMote]=useState("");
+ 
+  const guardarInfo = () => {
+    setPokemones((pokemones) => [...pokemones, {nombre: mote, pokemon: valueSelected.label}]);
+  
   };
 
   const handleSelect = (newValue) => {
@@ -30,6 +28,10 @@ const Formulario = () => {
     } else {
       setValueSelected({ label: newValue.label, value: newValue.value });
     }
+  };
+
+  const handleChange = (event) => {
+    setMote(event.target.value);
   };
 
   return (
@@ -56,10 +58,10 @@ const Formulario = () => {
                 onChange={(event, newValue) => {
                   handleSelect(newValue);
                 }}
-                options={nuevoListado.map((item, index) => ({
+                options={nuevoListado? nuevoListado.map((item, index) => ({
                   label: item.name,
                   value: item.id,
-                }))}
+                })): []}
                 getOptionLabel={(item) => item.label}
                 value={valueSelected}
                 renderInput={(params) => (
@@ -72,11 +74,19 @@ const Formulario = () => {
                     name="txt_tipocli"
                   />
                 )}
-              />                
-              </Grid>
+              />
+            </Grid>
             <Grid item md={4}>
 
-              aca el nombre
+              <TextField
+                value={mote}
+                margin="dense"
+                label="label"
+                variant="outlined"
+                fullWidth
+                name="txt_tipocli"
+                onChange={handleChange}
+              />
             </Grid>
           </Grid>
           <Button
@@ -84,6 +94,7 @@ const Formulario = () => {
             color="primary"
             size="large"
             variant="contained"
+            onClick={()=>guardarInfo()}
           >
             Terminar Registro
           </Button>
@@ -91,7 +102,7 @@ const Formulario = () => {
         <Grid item md={12}>
           {pokemones?.map((element, index) => (
             <Typography>
-              {element.poke.label} - {element.mote}
+              {element.pokemon} - {element.nombre}
             </Typography>
           ))}
         </Grid>
