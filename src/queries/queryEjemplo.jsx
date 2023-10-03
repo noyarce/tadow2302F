@@ -28,7 +28,7 @@ export const buscarInfoQuery = async (params) => {
   pokemones = data.results.map((item , index)=>{
     return {name: item.name , id: index +1 }  
   });
-
   
+ 
   return pokemones;
   };

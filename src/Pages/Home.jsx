@@ -5,17 +5,18 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Pokemon from "./Components/Pokemon";
 import PokeDetalle from "./Components/PokeDetalle";
+import Formulario from "./Formulario";
 
 
-export default function Home(){
-    const [value, setValue] = React.useState(0);
+export default function Home() {
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-    return(
-        <>
-       <Box sx={{ width: '100%' }}>
+  return (
+
+    <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Item One" {...a11yProps(0)} />
@@ -27,16 +28,16 @@ export default function Home(){
         <Pokemon></Pokemon>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-      <PokeDetalle></PokeDetalle>   
-    </CustomTabPanel>
+        <PokeDetalle></PokeDetalle>
+      </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <Formulario></Formulario>
       </CustomTabPanel>
     </Box>
 
 
-        </>
-    )
+
+  )
 }
 
 function CustomTabPanel(props) {
