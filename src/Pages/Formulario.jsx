@@ -14,31 +14,16 @@ import { useBuscarInfoQuery } from "../queries/queryEjemplo";
 const Formulario = () => {
   const [pokemones, setPokemones] = useState([]);
   const { data: nuevoListado } = useBuscarInfoQuery({ limit: 151 });
-  const [valueSelected, setValueSelected] = useState({ label: '', value: '' });
-const [mote, setMote]=useState("");
- 
-
-  const guardarInfo = () => {
-    setPokemones((pokemones) => [...pokemones, {nombre: mote, pokemon: valueSelected.label}]);
-  };
-
-  const handleSelect = (newValue) => {
-    if (newValue === null || typeof newValue === "undefined") {
-      setValueSelected({ label: "", value: "" });
-    } else {
-      setValueSelected({ label: newValue.label, value: newValue.value });
-    }
-  };
-
-  const handleChange = (event) => {
-    setMote(event.target.value);
-  };
-
-
-
 
 const handlesubmit=(event)=>{
-  const data = new FormData(event.target);
+  event.preventDefault();
+  const {pokemon, mote } = event.target.elements;
+
+  console.log(pokemon.value, mote.value);
+
+  setPokemones((pokemones) => [...pokemones, {nombre: mote.value, pokemon: pokemon.value}]);
+
+  console.log(pokemones);
 }
 
   return (
@@ -62,16 +47,12 @@ const handlesubmit=(event)=>{
 
               <Autocomplete
                 margin="dense"
-                id="select_pokemon"
-                onChange={(event, newValue) => {
-                  handleSelect(newValue);
-                }}
-                options={nuevoListado? nuevoListado.map((item, index) => ({
+                id="select_pokemon" 
+               options={nuevoListado? nuevoListado.map((item, index) => ({
                   label: item.label,
                   value: item.id,
                 })): []}
                 getOptionLabel={(item) => item.label}
-                value={valueSelected}
                 renderInput={(params) => (
                   <TextField
                     margin="dense"
@@ -79,7 +60,7 @@ const handlesubmit=(event)=>{
                     label="Pokemon"
                     variant="outlined"
                     fullWidth
-                    name="txt_tipocli"
+                    name="pokemon"
                   />
                 )}
               />
@@ -87,13 +68,11 @@ const handlesubmit=(event)=>{
             <Grid item md={4}>
 
               <TextField
-                value={mote}
                 margin="dense"
                 label="Mote"
                 variant="outlined"
                 fullWidth
-                name="txt_tipocli"
-                onChange={handleChange}
+                name="mote"
               />
             </Grid>
           </Grid>
@@ -109,7 +88,7 @@ const handlesubmit=(event)=>{
         </Grid>
         <Grid item md={12}>
           {pokemones?.map((element, index) => (
-            <Typography>
+            <Typography key={index}>
               {element.pokemon} - {element.nombre}
             </Typography>
           ))}
