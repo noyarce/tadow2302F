@@ -24,13 +24,13 @@ export default function Home() {
           <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
+      <CustomTabPanel value={value} index={2}>
         <Pokemon></Pokemon>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <PokeDetalle></PokeDetalle>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={0}>
         <Formulario></Formulario>
       </CustomTabPanel>
     </Box>

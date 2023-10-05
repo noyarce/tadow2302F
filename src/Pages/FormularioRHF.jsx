@@ -15,7 +15,7 @@ import CustomTextField from "./CustomComponents/CustomTextfield";
 import { useBuscarInfoQuery } from "../queries/queryEjemplo";
 
 const Formulario = () => {
-  const { handleSubmit,reset,control,formState: { errors }} = useForm({
+  const { handleSubmit,reset,control} = useForm({
     defaultValues: {
       poke: { id: "", label: "" },
       mote: ""

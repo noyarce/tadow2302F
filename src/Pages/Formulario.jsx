@@ -17,9 +17,9 @@ const Formulario = () => {
   const [valueSelected, setValueSelected] = useState({ label: '', value: '' });
 const [mote, setMote]=useState("");
  
+
   const guardarInfo = () => {
     setPokemones((pokemones) => [...pokemones, {nombre: mote, pokemon: valueSelected.label}]);
-  
   };
 
   const handleSelect = (newValue) => {
@@ -34,8 +34,16 @@ const [mote, setMote]=useState("");
     setMote(event.target.value);
   };
 
+
+
+
+const handlesubmit=(event)=>{
+  const data = new FormData(event.target);
+}
+
   return (
     <Container>
+      <form id="caja" onSubmit={handlesubmit}>     
       <Grid
         container
         direction="row"
@@ -59,7 +67,7 @@ const [mote, setMote]=useState("");
                   handleSelect(newValue);
                 }}
                 options={nuevoListado? nuevoListado.map((item, index) => ({
-                  label: item.name,
+                  label: item.label,
                   value: item.id,
                 })): []}
                 getOptionLabel={(item) => item.label}
@@ -68,7 +76,7 @@ const [mote, setMote]=useState("");
                   <TextField
                     margin="dense"
                     {...params}
-                    label="label"
+                    label="Pokemon"
                     variant="outlined"
                     fullWidth
                     name="txt_tipocli"
@@ -81,7 +89,7 @@ const [mote, setMote]=useState("");
               <TextField
                 value={mote}
                 margin="dense"
-                label="label"
+                label="Mote"
                 variant="outlined"
                 fullWidth
                 name="txt_tipocli"
@@ -94,7 +102,7 @@ const [mote, setMote]=useState("");
             color="primary"
             size="large"
             variant="contained"
-            onClick={()=>guardarInfo()}
+            type="submit"
           >
             Terminar Registro
           </Button>
@@ -107,7 +115,7 @@ const [mote, setMote]=useState("");
           ))}
         </Grid>
       </Grid>
-    </Container>
+    </form> </Container>
   );
 };
 export default Formulario;
