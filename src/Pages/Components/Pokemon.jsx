@@ -50,34 +50,12 @@ export default function Pokemon() {
 
 
 
-  function selectPokemon(valor) {
-    if (!listaSeleccionados.includes(valor)) {
-      setListaSeleccionados((listaSeleccionados) => [...listaSeleccionados, valor]);
-      let otros;
-      otros = pokemones.filter((item) => item !== valor);
-      setPokemones(otros);
 
-      let otros2;
-      otros2 = listaAux.filter((item) => item !== valor);
-      setListaAux(otros2);
-
-    }
-  }
-
-  function returnPokemon(valor) {
-    setPokemones(pokemones => [valor, ...pokemones]);
-    let filtro1;
-    filtro1 = listaSeleccionados.filter(item => item !== valor);
-    setListaSeleccionados(filtro1);
-    if (valor.name.startsWith(buscador) && buscador) {
-      setListaAux(listaAux => [...listaAux, valor]);
-    }
-  }
+  
   useEffect(() => {
     if (buscador.trim() !== "") {
       let result = pokemones.filter((item) =>
-        //item.name.toString().includes(buscador.toString().trim())
-        item.name.startsWith(buscador)
+        item.nombre.startsWith(buscador)
       );
       setListaAux(result);
     } else {
@@ -92,11 +70,10 @@ export default function Pokemon() {
       <input name="limitMax" onChange={handleInputChangeLimit}></input>
 
       <Grid container spacing={1}>
-        <Grid item md={4} xs={6}>
           {cargandoPokes && <LinearProgress />}
-          <List>
-            {pokemon?.map((item, index) => (
-              <>
+          
+            {listaAux.length == 0 && pokemon?.map((item, index) => (
+              <Grid item xs={3} md={3}>
                 <Card key ={index}>
                   <CardMedia sx={{ maxWidth: 200 }} component="img" image={urlBase+item.num_pokedex+".png"} />
                   <CardContent>
@@ -105,57 +82,24 @@ export default function Pokemon() {
                     Region: {item.region.reg_nombre}<br />
                     Tipo: {item.tipo_uno.tip_nombre} {item.tipo_dos?.tip_nombre}
                   </CardContent>
-                 
                 </Card>
-              {/* // <Link key={index} to={"/pokeDetalle/" + item.num_pokedex}>
-              //   <ListItem disablePadding key={index}>
-              //     <ListItemText primary={item.nombre} />
-              //   </ListItem>
-              //   </Link> */}
-                <Divider></Divider>
-              </>
+              </Grid>
             ))}
-          </List>
-        </Grid>
 
-        <Grid item md={4} xs={6}>
-          <List>
-            {listaAux.map((item, index) => (
-              <>
-                <ListItem disablePadding key={index}>
-                  <ListItemText primary={item.name} />
-                  <Button
-                    variant="outlined"
-                    onClick={() => selectPokemon(item)}
-                  >
-                    Miiiiirame!
-                  </Button>
-                </ListItem>
-                <Divider></Divider>
-              </>
+            {listaAux?.map((item, index) => (
+              <Grid item xs={3} md={3}>
+              <Card key ={index}>
+                <CardMedia sx={{ maxWidth: 200 }} component="img" image={urlBase+item.num_pokedex+".png"} />
+                <CardContent>
+                  numero : {item.num_pokedex} <br />
+                  nombre : {item.nombre} <br />
+                  Region: {item.region.reg_nombre}<br />
+                  Tipo: {item.tipo_uno.tip_nombre} {item.tipo_dos?.tip_nombre}
+                </CardContent>
+              </Card>
+            </Grid>
             ))}
-          </List>
         </Grid>
-
-        <Grid item md={4} xs={6}>
-          <List>
-            {listaSeleccionados.map((item, index) => (
-              <>
-                <ListItem disablePadding key={index}>
-                  <ListItemText primary={item.name} />
-                  <Button
-                    variant="outlined"
-                    onClick={() => returnPokemon(item)}
-                  >
-                    de vuelta
-                  </Button>
-                </ListItem>
-                <Divider></Divider>
-              </>
-            ))}
-          </List>
-        </Grid>
-      </Grid>
     </>
   );
 }
