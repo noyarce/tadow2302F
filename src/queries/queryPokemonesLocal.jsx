@@ -14,8 +14,7 @@ export function usePokemonesLocalQuery(params) {
 
 export const pokemonesLocalQuery = async (params) => {
     const [queryName, paramsFilter] = params.queryKey;
-    let url = "api/pokemonesAll"
-    const { data } = await clienteAxios.get(url);
-
-    return data;
+    const { data } = await clienteAxios.get("api/pokemonesAll");
+    console.log(data.pokemon);
+    return data.pokemon;
 };

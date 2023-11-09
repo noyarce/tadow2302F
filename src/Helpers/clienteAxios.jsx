@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const clienteAxios = axios.create({
-  baseURL: "http://localhost:8000/api/pokemonesAll",
+  baseURL: "http://localhost:8000/",
 });
 
 clienteAxios.interceptors.request.use(
