@@ -4,6 +4,7 @@ import ErrorPage from "./src/Pages/ErrorPage";
 import PokeDetalle from "./src/Pages/Components/PokeDetalle";
 import Login from "./src/Pages/Login";
 import { useUsuario } from "./src/Context/UsuarioContext";
+import RandomPoke from "./src/Pages/RandomPoke";
 
 const RouterApp = () => {
   const { usuario } = useUsuario();
@@ -26,6 +27,8 @@ const LogedInRoutes = () => {
     <>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="pokedex" element={<RandomPoke/>} />
+
         <Route path="pokeDetalle/:pokeId" element={<PokeDetalle/>} />
         <Route path='*' element={<ErrorPage />}/>
       </Routes>
