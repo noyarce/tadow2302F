@@ -1,5 +1,4 @@
-import clienteAxios from "../../Helpers/clienteAxios";
-
+import clienteAxios from "../Helpers/clienteAxios";
 
 export const useRegistroPokedex = async (form) => {
     console.log(form);
