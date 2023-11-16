@@ -25,6 +25,10 @@ export default function RandomPoke() {
         },
     });
 
+
+    // TODO: primero armar una funcion que sea un onsubmit -> generar un objeto. 
+    // objeto generado -> mutate.
+
     // mutate que haga el registro en el backend
 
     // backend; api, migracion y la funcion en el repo.
@@ -32,10 +36,7 @@ export default function RandomPoke() {
 
     return (
         <Container>
-
-
             {isError && <Alert severity="error">ese pokemon no existe</Alert>}
-
             <Card>
                 {
                     !cargandoPokes &&
