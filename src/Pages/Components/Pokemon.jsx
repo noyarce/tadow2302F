@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Container,
   Divider,
   Grid,
   LinearProgress,
@@ -63,11 +64,12 @@ export default function Pokemon() {
     }
   }, [buscador]);
 
+
+
+
   let urlBase= "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
   return (
-    <>
-      <input name="buscador" onChange={handleInputChange}></input>
-      <input name="limitMax" onChange={handleInputChangeLimit}></input>
+    <Container>
 
       <Grid container spacing={1}>
           {cargandoPokes && <LinearProgress />}
@@ -100,6 +102,6 @@ export default function Pokemon() {
             </Grid>
             ))}
         </Grid>
-    </>
+    </Container>
   );
 }

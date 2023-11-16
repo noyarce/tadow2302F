@@ -1,19 +1,20 @@
 import axios from "axios";
+import { getToken } from "./usuario";
 
 const clienteAxios = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: "http://localhost:8000/api/",
 });
 
 clienteAxios.interceptors.request.use(
   function (config) {
-    // const token = getToken();
-
-    // if (token) {
-    //   config.headers["authorization"] = `Bearer ${token}`;
-    // }
+     const token = getToken();
+     if (token) {
+       config.headers["authorization"] = `Bearer ${token}`;
+     }
     return config;
   },
   function (error) {
+    console.log('error', error);
     if (error.response.status === 401) {
       window.location = "/login";
     }
@@ -34,6 +35,7 @@ clienteAxios.interceptors.response.use(
     return response;
   },
   function (error) {
+    console.log(error);
     if (error.response.status === 401) {
       window.location = "/login";
     } else {
