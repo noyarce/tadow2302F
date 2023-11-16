@@ -15,7 +15,7 @@ const UsuarioProvider = (props) => {
 
   const { mutate, isLoading : cargandoUsuario} = useMutation(useIniciarSesion, {
     onSuccess: (response) => {
-   console.log(response);
+    console.log(response);
       setToken(response.access_token);
       getUsuario();
       window.location = "/";
@@ -34,7 +34,7 @@ const UsuarioProvider = (props) => {
   };
 
   const getUsuario = async () => {
-    if (!getToken()) {
+    if (!getToken()) { 
       return;
     }
     try {
