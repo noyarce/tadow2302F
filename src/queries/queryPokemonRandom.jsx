@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import axios from "axios";
 import clienteAxios from "../Helpers/clienteAxios";
 
 export function useQueryPokemonRandom() {
@@ -13,6 +12,6 @@ export function useQueryPokemonRandom() {
 }
 
 export const queryPokemonRandom = async () => {
-  const { data } = await clienteAxios.get("poke/random");
+  const { data } = await clienteAxios.get("/random");
 return data.pokemon;
 };
